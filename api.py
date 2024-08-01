@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 from countries import get_country_codes
 from olympic import get_olympic_medal_tally
+from athletes import get_olympic_athletes
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +33,13 @@ def get_medal_tally():
 def get_medal_tally_all():
     # Deprecated
     return get_medal_tally()
+
+
+@app.route("/athletes", methods=["GET"])
+def get_athletes():
+    results = get_olympic_athletes()
+    response = make_response(jsonify(results))
+    return response
 
 
 if __name__ == "__main__":
